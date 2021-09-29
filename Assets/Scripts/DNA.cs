@@ -57,7 +57,7 @@ public class DNA : iDNA
     public void DEBUG_PrintAffinityInfo()
     {
         foreach(var a in affinity)
-            Debug.Log($"{a.Key} - {a.Value}");
+            Debug.Log($"{a.Key} | {a.Value}");
     }
     protected override void MakeAminoAcids()
     {
