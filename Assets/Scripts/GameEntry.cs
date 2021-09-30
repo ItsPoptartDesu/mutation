@@ -6,17 +6,25 @@ public class GameEntry : MonoBehaviour
 {
     public int NucleotideCount = 0;
     public DNA dna;
-    public bool showDebugInfo = false;
+    public bool showDebugInfo;
+    public bool LoadData;
+    public string loadedMonster;
     // Start is called before the first frame update
     void Start()
     {
-        dna = new DNA();
-        for (int i = 0; i < NucleotideCount; ++i)
+        if (LoadData)
         {
-            iNucleotide n = GetRandomNucleotide();
-            dna.AddNucleotide(n);
+            dna = SaveSystem.Instance.LoadMonster(loadedMonster);
         }
-
+        else
+        {
+            dna = new DNA();
+            for (int i = 0; i < NucleotideCount; ++i)
+            {
+                iNucleotide n = GetRandomNucleotide();
+                dna.AddNucleotide(n);
+            }
+        }
         dna.CreateLife();
         if (showDebugInfo)
             ShowDebugInfo();
@@ -45,12 +53,6 @@ public class GameEntry : MonoBehaviour
         {
             dna.DEBUG_PrintNucleotideInfo();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private iNucleotide GetRandomNucleotide()

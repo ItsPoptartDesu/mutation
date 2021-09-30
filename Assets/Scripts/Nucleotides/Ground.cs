@@ -6,7 +6,7 @@ public class Ground : iNucleotide
 {
     public Ground()
     {
-        myNucleotide = NUCLEOTIDE.GROUND;
-        intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.GROUND;
+        IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }

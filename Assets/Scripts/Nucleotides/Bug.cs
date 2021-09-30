@@ -6,7 +6,7 @@ public class Bug : iNucleotide
 {
     public Bug()
     {
-        myNucleotide = NUCLEOTIDE.BUG;
-        intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.BUG;
+        IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }

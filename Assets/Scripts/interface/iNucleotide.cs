@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class iNucleotide
 {
+    [Serializable]
     public enum NUCLEOTIDE
     {
         NORMAL, FIRE, WATER, GRASS,
@@ -11,13 +13,11 @@ public abstract class iNucleotide
         GROUND, FLYING, PSYCHIC, BUG,
         ROCK, GHOST, DRAGON, DIVINE
     }
-    protected NUCLEOTIDE myNucleotide;
-    public NUCLEOTIDE GetNucleoTideType() { return myNucleotide; }
-    protected float intrinsicValue;
-    public float GetIntrinsicValue() { return intrinsicValue;}
+    public NUCLEOTIDE Nucleotide{get; set;} 
+    public float IntrinsicValue {get; set;}
 
     public void DEBUG_PrintInfo()
     {
-        Debug.Log($"NUCLEOTIDE INFO | NucleoTide type of {myNucleotide} | Intrinsic Value of {intrinsicValue}");
+        Debug.Log($"NUCLEOTIDE INFO | NucleoTide type of {Nucleotide} | Intrinsic Value of {IntrinsicValue}");
     }
 }

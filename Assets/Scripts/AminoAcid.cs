@@ -19,13 +19,13 @@ public class AminoAcid : iAminoAcid
         //init the defaults
         for (int i = 0; i < 4; ++i)
         {
-            var t = nucleotides[i].GetNucleoTideType();
+            var t = nucleotides[i].Nucleotide;
             if (!aminoAcids.ContainsKey(t))
-                aminoAcids.Add(t, new iDNAData(nucleotides[i].GetIntrinsicValue()));
+                aminoAcids.Add(t, new iDNAData(nucleotides[i].IntrinsicValue));
             else
             {
                 aminoAcids[t].weight ++;
-                aminoAcids[t].value += nucleotides[i].GetIntrinsicValue();
+                aminoAcids[t].value += nucleotides[i].IntrinsicValue;
                 aminoAcids[t].amount++;
             }
         }

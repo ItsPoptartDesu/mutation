@@ -6,7 +6,7 @@ public class Dragon : iNucleotide
 {
     public Dragon()
     {
-        myNucleotide = NUCLEOTIDE.DRAGON;
-        intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.DRAGON;
+        IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }

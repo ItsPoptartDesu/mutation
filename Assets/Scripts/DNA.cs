@@ -6,6 +6,7 @@ using System.Linq;
 
 public class DNA : iDNA
 {
+    public string Name;
     public DNA()
     {
         dna = new List<iNucleotide>();
@@ -22,8 +23,14 @@ public class DNA : iDNA
             MakeProteins();
         if (proteins.Count() > 3)
             MakeCells();
+
+        Name = SaveSystem.Instance.GenerateName(Random.Range(5, 12));
     }
 
+    public iNucleotide GetNucleotideAtIndex(int _i)
+    {
+        return dna[_i];
+    }
     public override void AddNucleotide(iNucleotide _nucleotide)
     {
         dna.Add(_nucleotide);
@@ -32,6 +39,8 @@ public class DNA : iDNA
     public int GetAminoAcidCount() { return aminoAcids.Count; }
     public int GetProteinCount() { return proteins.Count; }
     public int GetCellCount() { return cells.Count; }
+
+    #region debug calls
     public void DEBUG_PrintProteinInfo()
     {
         for (int i = 0; i < proteins.Count; ++i)
@@ -42,7 +51,7 @@ public class DNA : iDNA
     }
     public void DEBUG_PrintNucleotideInfo()
     {
-        for(int i = 0; i < dna.Count(); ++i)
+        for (int i = 0; i < dna.Count(); ++i)
         {
             dna[i].DEBUG_PrintInfo();
         }
@@ -70,6 +79,8 @@ public class DNA : iDNA
             Debug.Log($"{a.Value.amount} of {a.Key} with a value of {a.Value.value}");
         }
     }
+    #endregion
+
     protected override void MakeAminoAcids()
     {
         for (int i = 0; i < dna.Count; i += dnaSplitCount)

@@ -6,7 +6,7 @@ public class Water : iNucleotide
 {
     public Water()
     {
-        myNucleotide = NUCLEOTIDE.WATER;
-        intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.WATER;
+        IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }

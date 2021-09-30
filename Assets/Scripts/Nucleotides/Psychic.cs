@@ -6,7 +6,7 @@ public class Psychic : iNucleotide
 {
     public Psychic()
     {
-        myNucleotide = NUCLEOTIDE.PSYCHIC;
-       intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.PSYCHIC;
+       IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }

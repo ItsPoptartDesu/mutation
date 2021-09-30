@@ -6,7 +6,7 @@ public class Fire : iNucleotide
 {
     public Fire()
     {
-        myNucleotide = NUCLEOTIDE.FIRE;
-        intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.FIRE;
+        IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }

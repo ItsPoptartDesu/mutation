@@ -6,7 +6,7 @@ public class Normal : iNucleotide
 {
     public Normal()
     {
-        myNucleotide = NUCLEOTIDE.NORMAL;
-        intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.NORMAL;
+        IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }

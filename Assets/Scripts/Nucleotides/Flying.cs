@@ -6,7 +6,7 @@ public class Flying : iNucleotide
 {
     public Flying()
     {
-        myNucleotide = NUCLEOTIDE.FLYING;
-        intrinsicValue = Random.Range(0.0f,1.0f);
+        Nucleotide = NUCLEOTIDE.FLYING;
+        IntrinsicValue = Random.Range(0.0f,1.0f);
     }
 }
