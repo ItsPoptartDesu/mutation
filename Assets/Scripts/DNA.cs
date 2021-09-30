@@ -18,9 +18,9 @@ public class DNA : iDNA
     public void CreateLife()
     {
         MakeAminoAcids();
-        if (aminoAcids.Count() > 0)
+        if (aminoAcids.Count() > 3)
             MakeProteins();
-        if (proteins.Count() > 0)
+        if (proteins.Count() > 3)
             MakeCells();
     }
 
@@ -38,6 +38,13 @@ public class DNA : iDNA
         {
             Debug.Log($"Protein {i}");
             proteins[i].DEBUG_PrintInfo();
+        }
+    }
+    public void DEBUG_PrintNucleotideInfo()
+    {
+        for(int i = 0; i < dna.Count(); ++i)
+        {
+            dna[i].DEBUG_PrintInfo();
         }
     }
     public void DEBUG_PrintAminoAcidInfo()

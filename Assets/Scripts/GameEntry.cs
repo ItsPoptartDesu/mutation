@@ -38,9 +38,12 @@ public class GameEntry : MonoBehaviour
         }
         else if (dna.GetAminoAcidCount() > 1)
         {
-
             dna.DEBUG_PrintAminoAcidInfo();
             return;
+        }
+        else
+        {
+            dna.DEBUG_PrintNucleotideInfo();
         }
     }
 
