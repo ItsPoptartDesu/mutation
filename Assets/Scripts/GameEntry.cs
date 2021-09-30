@@ -6,6 +6,7 @@ public class GameEntry : MonoBehaviour
 {
     public int NucleotideCount = 0;
     public DNA dna;
+    public bool showDebugInfo = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +16,32 @@ public class GameEntry : MonoBehaviour
             iNucleotide n = GetRandomNucleotide();
             dna.AddNucleotide(n);
         }
-        
+
         dna.CreateLife();
-        dna.DEBUG_PrintAffinityInfo();
+        if (showDebugInfo)
+            ShowDebugInfo();
         Debug.Log($"Nucleotide Count {dna.GetNucleotideCount()} | Amino Acid Count {dna.GetAminoAcidCount()} | Protein Count {dna.GetProteinCount()} | Cell Count {dna.GetCellCount()}");
+    }
+
+    private void ShowDebugInfo()
+    {
+        if (dna.GetCellCount() > 1)
+        {
+            dna.DEBUG_PrintAffinityInfo();
+            //dna.DEBUG_PrintCellInfo();
+            return;
+        }
+        else if (dna.GetProteinCount() > 1)
+        {
+            dna.DEBUG_PrintProteinInfo();
+            return;
+        }
+        else if (dna.GetAminoAcidCount() > 1)
+        {
+
+            dna.DEBUG_PrintAminoAcidInfo();
+            return;
+        }
     }
 
     // Update is called once per frame
@@ -52,37 +75,37 @@ public class GameEntry : MonoBehaviour
                 nt = new Ice();
                 break;
             case iNucleotide.NUCLEOTIDE.FIGHTING:
-            nt = new Fighting();
+                nt = new Fighting();
                 break;
             case iNucleotide.NUCLEOTIDE.POISON:
-            nt = new Poison();
+                nt = new Poison();
                 break;
             case iNucleotide.NUCLEOTIDE.GROUND:
-            nt = new Ground();
+                nt = new Ground();
                 break;
             case iNucleotide.NUCLEOTIDE.FLYING:
-            nt = new Flying();
+                nt = new Flying();
                 break;
             case iNucleotide.NUCLEOTIDE.PSYCHIC:
-            nt = new Psychic();
+                nt = new Psychic();
                 break;
             case iNucleotide.NUCLEOTIDE.BUG:
-            nt = new Bug();
+                nt = new Bug();
                 break;
             case iNucleotide.NUCLEOTIDE.ROCK:
-            nt = new Rock();
+                nt = new Rock();
                 break;
             case iNucleotide.NUCLEOTIDE.GHOST:
-            nt = new Ghost();
+                nt = new Ghost();
                 break;
             case iNucleotide.NUCLEOTIDE.DRAGON:
-            nt = new Dragon();
+                nt = new Dragon();
                 break;
             case iNucleotide.NUCLEOTIDE.DIVINE://should not be used double gold star feature down the line
-            nt = new Divine();
+                nt = new Divine();
                 break;
             default:
-            nt = new Normal();
+                nt = new Normal();
                 break;
         }
         return nt;

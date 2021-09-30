@@ -12,14 +12,16 @@ public class DNA : iDNA
         aminoAcids = new List<iAminoAcid>();
         proteins = new List<iProtein>();
         cells = new List<iCell>();
-        affinity = new Dictionary<iNucleotide.NUCLEOTIDE, float>();
+        affinity = new Dictionary<iNucleotide.NUCLEOTIDE, iDNAData>();
     }
 
     public void CreateLife()
     {
         MakeAminoAcids();
-        MakeProteins();
-        MakeCells();
+        if (aminoAcids.Count() > 0)
+            MakeProteins();
+        if (proteins.Count() > 0)
+            MakeCells();
     }
 
     public override void AddNucleotide(iNucleotide _nucleotide)
@@ -56,8 +58,10 @@ public class DNA : iDNA
     }
     public void DEBUG_PrintAffinityInfo()
     {
-        foreach(var a in affinity)
-            Debug.Log($"{a.Key} | {a.Value}");
+        foreach (var a in affinity)
+        {
+            Debug.Log($"{a.Value.amount} of {a.Key} with a value of {a.Value.value}");
+        }
     }
     protected override void MakeAminoAcids()
     {
@@ -94,9 +98,11 @@ public class DNA : iDNA
             foreach (var i in c.cells)
             {
                 if (!affinity.ContainsKey(i.Key))
-                    affinity.Add(i.Key, i.Value.value);
-                else{
-                    affinity[i.Key] += i.Value.value;
+                    affinity.Add(i.Key, new iDNAData(i.Value.value));
+                else
+                {
+                    affinity[i.Key].value += i.Value.value;
+                    affinity[i.Key].amount++;
                 }
             }
         }

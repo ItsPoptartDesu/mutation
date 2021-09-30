@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class iDNA
 {
-    public Dictionary<iNucleotide.NUCLEOTIDE, float> affinity;
+    public Dictionary<iNucleotide.NUCLEOTIDE, iDNAData> affinity;
 
     protected int dnaSplitCount = 4;
 

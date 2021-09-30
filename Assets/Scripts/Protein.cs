@@ -23,11 +23,12 @@ public class Protein : iProtein
             foreach (var n in aa.aminoAcids)
             {
                 if (!protiens.ContainsKey(n.Key))
-                    protiens.Add(n.Key, new ProteinValues(1.0f, n.Value.value));
+                    protiens.Add(n.Key, new iDNAData(n.Value.value));
                 else
                 {
                     protiens[n.Key].weight++;
                     protiens[n.Key].value += (n.Value.weight * n.Value.value);
+                    protiens[n.Key].amount++;
                 }
             }
         }
@@ -41,7 +42,7 @@ public class Protein : iProtein
     {
         foreach (var p in protiens)
         {
-            Debug.Log($"{p.Key} with a weight of {p.Value.weight} and a value of {p.Value.value}");
+            Debug.Log($"{p.Value.amount} of {p.Key} with a weight of {p.Value.weight} and a value of {p.Value.value}");
         }
     }
 }

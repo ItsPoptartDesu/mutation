@@ -22,11 +22,12 @@ public class Cell : iCell
             foreach (var n in p.protiens)
             {
                 if (!cells.ContainsKey(n.Key))
-                    cells.Add(n.Key, new CellValues(1.0f, n.Value.value));
+                    cells.Add(n.Key, new iDNAData(n.Value.value));
                 else
                 {
                     cells[n.Key].weight++;
                     cells[n.Key].value += (n.Value.weight * n.Value.value);
+                    cells[n.Key].amount++;
                 }
             }
         }
@@ -39,7 +40,7 @@ public class Cell : iCell
     {
         foreach (var c in cells)
         {
-            Debug.Log($"{c.Key} with a weight of {c.Value.weight} and a value of {c.Value.value}");
+            Debug.Log($"{c.Value.amount} of {c.Key} with a weight of {c.Value.weight} and a value of {c.Value.value}");
         }
     }
 }

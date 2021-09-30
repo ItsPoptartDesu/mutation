@@ -21,11 +21,12 @@ public class AminoAcid : iAminoAcid
         {
             var t = nucleotides[i].GetNucleoTideType();
             if (!aminoAcids.ContainsKey(t))
-                aminoAcids.Add(t, new AminoAcidValues(1.0f, nucleotides[i].GetIntrinsicValue()));
+                aminoAcids.Add(t, new iDNAData(nucleotides[i].GetIntrinsicValue()));
             else
             {
                 aminoAcids[t].weight ++;
                 aminoAcids[t].value += nucleotides[i].GetIntrinsicValue();
+                aminoAcids[t].amount++;
             }
         }
         //compress the weights
@@ -41,7 +42,7 @@ public class AminoAcid : iAminoAcid
         foreach (var i in aminoAcids)
         {
             if (i.Value.value > 0)
-                Debug.Log($"{i.Key} with a weight of {i.Value.weight} and a value of {i.Value.value}");
+                Debug.Log($"{i.Value.amount} of {i.Key} with a weight of {i.Value.weight} and a value of {i.Value.value}");
         }
     }
 }

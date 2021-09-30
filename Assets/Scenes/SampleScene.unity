@@ -341,5 +341,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa18cf935e4d84fa085d27cfec96dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NucleotideCount: 16
-  dna: {fileID: 0}
+  NucleotideCount: 12
+  showDebugInfo: 1
