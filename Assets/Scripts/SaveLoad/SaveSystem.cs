@@ -48,9 +48,10 @@ public class SaveSystem : MonoBehaviour
         d.Name = js.data.Name;
         foreach (var n in js.data.dnaSequence)
         {
-            var element = ConvertIntToNucleotide(n.NucleotideTag);
+            var element = ConvertTagToNucleotide(n.NucleotideTag);
             element.Nucleotide = n.NucleotideTag;
             element.IntrinsicValue = n.IntrinsicValue;
+            element.State = n.MutationState;
             d.AddNucleotide(element);
         }
         return d;
@@ -63,7 +64,7 @@ public class SaveSystem : MonoBehaviour
         return targetFile.text;
     }
 
-    private iNucleotide ConvertIntToNucleotide(iNucleotide.NUCLEOTIDE _num)
+    public iNucleotide ConvertTagToNucleotide(iNucleotide.NUCLEOTIDE _num)
     {
         iNucleotide nt;
         switch (_num)
@@ -117,7 +118,7 @@ public class SaveSystem : MonoBehaviour
                 nt = new Divine();
                 break;
             default:
-                nt = new Normal();
+                nt = new Normal();// this should never be hit
                 break;
         }
         return nt;

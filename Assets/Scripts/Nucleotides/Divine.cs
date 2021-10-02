@@ -8,5 +8,6 @@ public class Divine : iNucleotide
     {
         Nucleotide = NUCLEOTIDE.DIVINE;
         IntrinsicValue = Random.Range(0.0f,1.0f);
+        State = MutationState.STATE.BASE;
     }
 }

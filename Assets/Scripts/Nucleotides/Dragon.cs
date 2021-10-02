@@ -8,5 +8,6 @@ public class Dragon : iNucleotide
     {
         Nucleotide = NUCLEOTIDE.DRAGON;
         IntrinsicValue = Random.Range(0.0f,1.0f);
+        State = MutationState.STATE.BASE;
     }
 }

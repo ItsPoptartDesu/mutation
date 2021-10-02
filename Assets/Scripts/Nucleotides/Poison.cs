@@ -8,5 +8,6 @@ public class Poison : iNucleotide
     {
         Nucleotide = NUCLEOTIDE.POISON;
         IntrinsicValue = Random.Range(0.0f,1.0f);
+        State = MutationState.STATE.BASE;
     }
 }

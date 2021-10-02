@@ -8,5 +8,6 @@ public class Fighting : iNucleotide
     {
         Nucleotide = NUCLEOTIDE.FIGHTING;
         IntrinsicValue = Random.Range(0.0f,1.0f);
+        State = MutationState.STATE.BASE;
     }
 }

@@ -8,5 +8,6 @@ public class Normal : iNucleotide
     {
         Nucleotide = NUCLEOTIDE.NORMAL;
         IntrinsicValue = Random.Range(0.0f,1.0f);
+        State = MutationState.STATE.BASE;
     }
 }

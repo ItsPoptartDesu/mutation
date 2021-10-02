@@ -9,67 +9,84 @@ public class DNA : iDNA
     public string Name;
     public DNA()
     {
-        dna = new List<iNucleotide>();
-        aminoAcids = new List<iAminoAcid>();
-        proteins = new List<iProtein>();
-        cells = new List<iCell>();
+        dna = new Dictionary<iNucleotide.NUCLEOTIDE, List<iNucleotide>>();
         affinity = new Dictionary<iNucleotide.NUCLEOTIDE, iDNAData>();
+        State = MutationState.STATE.BASE;
     }
 
+    // public int GetNucleotideCount() { return (from n in dna where n.State == MutationState.STATE.BASE select n).Count(); }
+    // public int GetAminoAcidCount() { return (from n in dna where n.State == MutationState.STATE.AMINO select n).Count(); }
+    // public int GetProteinCount() { return (from n in dna where n.State == MutationState.STATE.PROTEIN select n).Count(); }
+    // public int GetCellCount() { return (from n in dna where n.State == MutationState.STATE.CELL select n).Count(); }
+
+    //intended use for Monster Loading and gameplay
     public void CreateLife()
     {
-        MakeAminoAcids();
-        if (aminoAcids.Count() > 3)
-            MakeProteins();
-        if (proteins.Count() > 3)
-            MakeCells();
-
+        iNucleotideMutation(MutationState.STATE.BASE);
+        iNucleotideMutation(MutationState.STATE.AMINO);
+        iNucleotideMutation(MutationState.STATE.PROTEIN);
+        iNucleotideMutation(MutationState.STATE.CELL);
+        DEBUG_PrintInfo();
+    }
+    //intended for new monster creation, IE Monster Builder, Random Gen
+    public void CreateLifeRaw()
+    {
+        // MakeAminoAcids();
+        // MakeProteins();
+        // MakeCells();
+        iNucleotideMutation(MutationState.STATE.BASE);
         Name = SaveSystem.Instance.GenerateName(Random.Range(5, 12));
     }
 
-    public iNucleotide GetNucleotideAtIndex(int _i)
+    /// all we do is if the nucleotide has already been compressed we will increase its state for its ready for promotion congrats you did it little buddy
+    private void iNucleotideMutation(MutationState.STATE _s)
     {
-        return dna[_i];
+        //foreach nucleotide in dictionary dna
+        foreach (var n in dna)
+        {
+            //grab the ratio before any changes could be made
+            bool isLeveling = true;
+            do
+            {
+
+                List<iNucleotide> t = n.Value.Where(x => x.State == _s).Take(dnaSplitCount).ToList();
+                float ratio = n.Value.Count() / dna.Count;
+                if (t.Count >= dnaSplitCount)
+                {
+                    iNucleotide compressed = null;
+                    for (int i = 0; i < dnaSplitCount; ++i)
+                    {
+                        //remove the old ones they are being promoted
+                        n.Value.Remove(t[i]);
+                        compressed = SaveSystem.Instance.ConvertTagToNucleotide(t[i].Nucleotide);
+                        compressed.State = t[i].State + 1;
+                        compressed.IntrinsicValue += (ratio * t[i].IntrinsicValue);
+                    }
+                    n.Value.Add(compressed);
+                }
+                else
+                    isLeveling = false;
+            } while (isLeveling);
+        }
     }
+
     public override void AddNucleotide(iNucleotide _nucleotide)
     {
-        dna.Add(_nucleotide);
+        if (!dna.ContainsKey(_nucleotide.Nucleotide))
+            dna[_nucleotide.Nucleotide] = new List<iNucleotide>();
+        dna[_nucleotide.Nucleotide].Add(_nucleotide);
     }
-    public int GetNucleotideCount() { return dna.Count; }
-    public int GetAminoAcidCount() { return aminoAcids.Count; }
-    public int GetProteinCount() { return proteins.Count; }
-    public int GetCellCount() { return cells.Count; }
 
     #region debug calls
-    public void DEBUG_PrintProteinInfo()
+    public void DEBUG_PrintInfo()
     {
-        for (int i = 0; i < proteins.Count; ++i)
+        foreach (var a in dna)
         {
-            Debug.Log($"Protein {i}");
-            proteins[i].DEBUG_PrintInfo();
-        }
-    }
-    public void DEBUG_PrintNucleotideInfo()
-    {
-        for (int i = 0; i < dna.Count(); ++i)
-        {
-            dna[i].DEBUG_PrintInfo();
-        }
-    }
-    public void DEBUG_PrintAminoAcidInfo()
-    {
-        for (int i = 0; i < aminoAcids.Count; ++i)
-        {
-            Debug.Log($"AminoAcid {i}");
-            aminoAcids[i].DEBUG_PrintInfo();
-        }
-    }
-    public void DEBUG_PrintCellInfo()
-    {
-        for (int i = 0; i < cells.Count; ++i)
-        {
-            Debug.Log($"Cell {i}");
-            cells[i].DEBUG_PrintInfo();
+            foreach (var b in a.Value)
+            {
+                Debug.Log($"{a.Key} with a count of {a.Value.Count}");
+                b.DEBUG_PrintInfo();
+            }
         }
     }
     public void DEBUG_PrintAffinityInfo()
@@ -79,50 +96,8 @@ public class DNA : iDNA
             Debug.Log($"{a.Value.amount} of {a.Key} with a value of {a.Value.value}");
         }
     }
+
+
     #endregion
 
-    protected override void MakeAminoAcids()
-    {
-        for (int i = 0; i < dna.Count; i += dnaSplitCount)
-        {
-            iNucleotide[] nucleotides = dna.Skip(i).Take(dnaSplitCount).ToArray();
-            AminoAcid aa = new AminoAcid(nucleotides);
-            aminoAcids.Add(aa);
-        }
-    }
-    protected override void MakeProteins()
-    {
-        for (int i = 0; i < aminoAcids.Count; i += dnaSplitCount)
-        {
-            iAminoAcid[] aa = aminoAcids.Skip(i).Take(dnaSplitCount).ToArray();
-            Protein p = new Protein(aa);
-            proteins.Add(p);
-        }
-    }
-    protected override void MakeCells()
-    {
-        for (int i = 0; i < proteins.Count; i += dnaSplitCount)
-        {
-            iProtein[] p = proteins.Skip(i).Take(dnaSplitCount).ToArray();
-            Cell c = new Cell(p);
-            cells.Add(c);
-        }
-        CompressCells();
-    }
-    protected override void CompressCells()
-    {
-        foreach (var c in cells)
-        {
-            foreach (var i in c.cells)
-            {
-                if (!affinity.ContainsKey(i.Key))
-                    affinity.Add(i.Key, new iDNAData(i.Value.value));
-                else
-                {
-                    affinity[i.Key].value += i.Value.value;
-                    affinity[i.Key].amount++;
-                }
-            }
-        }
-    }
 }

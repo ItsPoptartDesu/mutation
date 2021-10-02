@@ -1,0 +1,31 @@
+{
+    "data": {
+        "Name": "Syrace",
+        "dnaSequence": [{
+            "NucleotideTag": 2,
+            "IntrinsicValue": 1.0,
+            "MutationState": 0,
+            "isCompressed": false
+        }, {
+            "NucleotideTag": 2,
+            "IntrinsicValue": 1.0,
+            "MutationState": 0,
+            "isCompressed": false
+        }, {
+            "NucleotideTag": 2,
+            "IntrinsicValue": 1.0,
+            "MutationState": 0,
+            "isCompressed": false
+        }, {
+            "NucleotideTag": 2,
+            "IntrinsicValue": 1.0,
+            "MutationState": 0,
+            "isCompressed": false
+        }, {
+            "NucleotideTag": 2,
+            "IntrinsicValue": 1.0,
+            "MutationState": 0,
+            "isCompressed": false
+        }]
+    }
+}

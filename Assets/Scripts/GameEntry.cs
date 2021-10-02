@@ -8,6 +8,7 @@ public class GameEntry : MonoBehaviour
     public DNA dna;
     public bool showDebugInfo;
     public bool LoadData;
+    public bool GenerateRandomMonsterAndSave;
     public string loadedMonster;
     // Start is called before the first frame update
     void Start()
@@ -15,8 +16,9 @@ public class GameEntry : MonoBehaviour
         if (LoadData)
         {
             dna = SaveSystem.Instance.LoadMonster(loadedMonster);
+            dna.CreateLife();
         }
-        else
+        else if (GenerateRandomMonsterAndSave)
         {
             dna = new DNA();
             for (int i = 0; i < NucleotideCount; ++i)
@@ -24,35 +26,14 @@ public class GameEntry : MonoBehaviour
                 iNucleotide n = GetRandomNucleotide();
                 dna.AddNucleotide(n);
             }
+            dna.CreateLifeRaw();
+            //SaveSystem.Instance.SaveMonster(dna);
         }
-        dna.CreateLife();
-        if (showDebugInfo)
-            ShowDebugInfo();
-        Debug.Log($"Nucleotide Count {dna.GetNucleotideCount()} | Amino Acid Count {dna.GetAminoAcidCount()} | Protein Count {dna.GetProteinCount()} | Cell Count {dna.GetCellCount()}");
-    }
 
-    private void ShowDebugInfo()
-    {
-        if (dna.GetCellCount() > 1)
-        {
-            dna.DEBUG_PrintAffinityInfo();
-            //dna.DEBUG_PrintCellInfo();
-            return;
-        }
-        else if (dna.GetProteinCount() > 1)
-        {
-            dna.DEBUG_PrintProteinInfo();
-            return;
-        }
-        else if (dna.GetAminoAcidCount() > 1)
-        {
-            dna.DEBUG_PrintAminoAcidInfo();
-            return;
-        }
-        else
-        {
-            dna.DEBUG_PrintNucleotideInfo();
-        }
+        
+
+        // if (GenerateRandomMonsterAndSave || LoadData)
+        //     Debug.Log($"Nucleotide Count {dna.GetNucleotideCount()} | Amino Acid Count {dna.GetAminoAcidCount()} | Protein Count {dna.GetProteinCount()} | Cell Count {dna.GetCellCount()}");
     }
 
     private iNucleotide GetRandomNucleotide()

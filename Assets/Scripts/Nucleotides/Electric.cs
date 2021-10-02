@@ -8,5 +8,6 @@ public class Electric : iNucleotide
     {
         Nucleotide = NUCLEOTIDE.ELECTRIC;
         IntrinsicValue = Random.Range(0.0f,1.0f);
+        State = MutationState.STATE.BASE;
     }
 }

@@ -19,6 +19,8 @@ public class JSONSave
     {
         public iNucleotide.NUCLEOTIDE NucleotideTag;
         public float IntrinsicValue;
+        public MutationState.STATE MutationState;
+        public bool isCompressed;
     }
 
     public JSONSaveData data;
@@ -27,13 +29,16 @@ public class JSONSave
         data = new JSONSaveData();
         data.Name = _dna.Name;
         data.dnaSequence = new List<JSONNucleotide>();
-        for (int i = 0; i < _dna.GetNucleotideCount(); ++i)
+        foreach (var t in _dna.dna)
         {
-            JSONNucleotide jn = new JSONNucleotide();
-            var n = _dna.GetNucleotideAtIndex(i);
-            jn.IntrinsicValue = n.IntrinsicValue;
-            jn.NucleotideTag = n.Nucleotide;
-            data.dnaSequence.Add(jn);
+            foreach (var n in t.Value)
+            {
+                JSONNucleotide jn = new JSONNucleotide();
+                jn.IntrinsicValue = n.IntrinsicValue;
+                jn.NucleotideTag = n.Nucleotide;
+                jn.MutationState = n.State;
+                data.dnaSequence.Add(jn);
+            }
         }
         //data.dnaSequence = _dna.GetDNASequence().ToArray();
     }
