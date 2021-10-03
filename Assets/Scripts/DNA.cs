@@ -41,6 +41,7 @@ public class DNA : iDNA
     /// all we do is if the nucleotide has already been compressed we will increase its state for its ready for promotion congrats you did it little buddy
     private void iNucleotideMutation(MutationState.STATE _s)
     {
+        int dnaSplitCount = GetSplitCountFromState(_s);
         //foreach nucleotide in dictionary dna
         foreach (var n in dna)
         {
@@ -68,6 +69,27 @@ public class DNA : iDNA
                     isLeveling = false;
             } while (isLeveling);
         }
+    }
+
+    public int GetSplitCountFromState(MutationState.STATE _s)
+    {
+        int s = 0;
+        switch (_s)
+        {
+            case MutationState.STATE.BASE:
+                s = baseSplitCount;
+                break;
+            case MutationState.STATE.AMINO:
+                s = AminoAcidSplitCount;
+                break;
+            case MutationState.STATE.PROTEIN:
+                s = ProteinSplitCount;
+                break;
+            case MutationState.STATE.CELL:
+                s = CellSplitCount;
+                break;
+        }
+        return s;
     }
 
     public override void AddNucleotide(iNucleotide _nucleotide)
